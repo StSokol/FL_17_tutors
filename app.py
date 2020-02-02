@@ -4,9 +4,9 @@ from flask import Flask, render_template, request, url_for, flash
 import local_tools
 from random import sample
 
-DATA_TEACHERS = "database/teachers.json" # all tutors
-DATA_BOOKINGS = "database/bookings.json" # all bookings
-DATA_CLIENT_REQUEST = "database/request.json" # last request
+DATA_TEACHERS = "teachers.json" # all tutors
+DATA_BOOKINGS = "bookings.json" # all bookings
+DATA_CLIENT_REQUEST = "request.json" # last request
 
 
 app = Flask("__name__")
