@@ -112,4 +112,5 @@ if __name__ == "__main__":
     tutors = local_tools.get_teachers(DATA_TEACHERS)
     goals = local_tools.get_goals()
 
-    app.run(host="127.0.0.1", port=5000, debug=False)
+    # app.run(host="127.0.0.1", port=5000, debug=True)
+    app.run()
