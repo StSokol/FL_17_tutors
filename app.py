@@ -11,6 +11,8 @@ DATA_CLIENT_REQUEST = "request.json" # last request
 
 app = Flask("__name__")
 
+tutors = local_tools.get_teachers(DATA_TEACHERS)
+goals = local_tools.get_goals()
 
 @app.route('/')
 def index(all_selected=None):
@@ -25,7 +27,7 @@ def index(all_selected=None):
 
 
 @app.route("/goals/<goal>")
-def goals(goal):
+def app_goals(goal):
     # "- цели /goals/<goal>/  – здесь будет цель <goal>"
     if not goal or goal not in goals:
         goal = "travel"
@@ -109,8 +111,5 @@ def form_tutor_booking_done():
 
 
 if __name__ == "__main__":
-    tutors = local_tools.get_teachers(DATA_TEACHERS)
-    goals = local_tools.get_goals()
-
     # app.run(host="127.0.0.1", port=5000, debug=True)
     app.run(debug=True)
