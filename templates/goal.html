@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block container %}
+  <main class="container mt-3">
+    <h1 class="h1 text-center w-50 mx-auto mt-1 py-5 mb-4"><strong>{{ goals[goal].sign }}<br />Преподаватели <br> {{ goals[goal].rus_name|lower }}</strong></h1>
+
+      <div class="row">
+      <div class="col-12 col-lg-10 offset-lg-1 m-auto">
+        {% for tutor in tutors %}
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-3"><img src="{{ tutor.picture }}" class="img-fluid" alt=""></div>
+              <div class="col-9">
+                <p class="float-right">Рейтинг: {{ tutor.rating }} Ставка: {{ tutor.price }} / час</p>
+                <h2 class="h4">{{ tutor.name }}</h2>
+                <p>{{ tutor.about }}</p>
+                <a href="/profiles/{{ tutor.id }}" class="btn btn-outline-primary btn-sm mr-3 mb-2">Показать информаци и расписание</a>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+
+    <h2 class="text-center mt-5 mb-3">Не нашли своего репетитора?</h2>
+    <p class="text-center mb-4">Расскажите, кто вам нужен и мы подберем его сами</p>
+    <div class="text-center pb-5">
+        <a href="/request/{{ goal }}" class="btn btn-primary">Заказать подбор</a>
+        <!--  a href="{{ url_for('form_request', goal=goal ) }} class="btn btn-primary">Заказать подбор</a> -->
+    </div>
+
+
+  </main>
+{% endblock %}

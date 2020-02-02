@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block container %}
+  <main class="container mt-3">
+    <div class="card my-4 mx-auto">
+      <div class="card-body m-2 m-md-4">
+        <div class="row">
+          <div class="col-5"><img src="{{ tutor.picture }}" class="img-fluid" alt=""></div>
+          <div class="col-7">
+            <h1 class="h2">{{ tutor.name }}</h1>
+            <p>{% for bage in tutor.goals %}<span class="badge badge-secondary mr-2">{{ goals[bage].sign }} {{ goals[bage].rus_name }} </span>
+                {% endfor %}Рейтинг: {{ tutor.rating }} Ставка: {{ tutor.price }} / час</p>
+            <p>{{ tutor.about }}</p>
+            <br> <br>
+
+          </div>
+        </div>
+      </div>
+      <div class="card-body m-2 m-md-4">
+        <h2 class="h5 mb-4">Записаться на пробный урок</h2>
+        <table class="table">
+          <tr>
+            <th><span class="btn font-weight-bold py-0">#</span></th>
+            <th>Пн</th>
+            <th>Вт</th>
+            <th>Ср</th>
+            <th>Чт</th>
+            <th>Пт</th>
+            <th>Сб</th>
+            <th>Вс</th>
+          </tr>
+          {% set time_slots = ["8:00","10:00","12:00","14:00","16:00"] %}
+          {% for time_slot in time_slots %}
+          <tr>
+            <td><span class="btn">{{ time_slot }}</span></td>
+            {% for day in ["mon","tue","wed","thu","fri"] %}
+            {% if tutor.free[day][time_slot] %}
+            {% set available = " btn-success" %}
+            {% else %}
+            {% set available = " btn-secondary" %}
+            {% endif %}
+            <!-- <td><a href="/booking/{{ tutor.id }}/{{ day }}/{{ time_slot }}" class="btn btn-sm{{ available }}">{{ time_slot }}</a></td> -->
+            <td><a href="{{ url_for('form_tutor_booking', tutor_id=tutor.id, day_of_week=day, time_slot=time_slot) }}" class="btn btn-sm{{ available }}">{{ time_slot }}</a></td>
+            {% endfor %}
+            <td>-</td>
+            <td>-</td>
+          </tr>
+          {% endfor %}
+          </table>
+      </div>
+    </div>
+  </main>
+{% endblock %}
