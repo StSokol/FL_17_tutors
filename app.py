@@ -113,4 +113,4 @@ if __name__ == "__main__":
     goals = local_tools.get_goals()
 
     # app.run(host="127.0.0.1", port=5000, debug=True)
-    app.run()
+    app.run(debug=True)
