@@ -4,9 +4,9 @@ from flask import Flask, render_template, request, url_for, flash
 import local_tools
 from random import sample
 
-DATA_TEACHERS = "teachers.json" # all tutors
-DATA_BOOKINGS = "bookings.json" # all bookings
-DATA_CLIENT_REQUEST = "request.json" # last request
+DATA_TEACHERS = "database/teachers.json" # all tutors
+DATA_BOOKINGS = "database/bookings.json" # all bookings
+DATA_CLIENT_REQUEST = "database/request.json" # last request
 
 
 app = Flask("__name__")
@@ -112,4 +112,4 @@ def form_tutor_booking_done():
 
 if __name__ == "__main__":
     # app.run(host="127.0.0.1", port=5000, debug=True)
-    app.run(debug=True)
+    app.run(debug=False)
