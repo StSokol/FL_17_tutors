@@ -31,7 +31,9 @@ def get_goals():
 def get_rus_name_day_of_week(day_of_week):
     set_day = {"mon":"Понедельник","tue":"Вторник","wed":"Среда","thu":"Четверг",\
                 "fri":"Пятница","sat":"Суббота","sun":"Воскресенье"}
-    if day_of_week in set_day:
+    if day_of_week == 'all':
+        return set_day
+    elif day_of_week in set_day:
         return set_day[day_of_week]
     return ""
 

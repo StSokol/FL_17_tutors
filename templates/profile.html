@@ -9,45 +9,46 @@
           <div class="col-7">
             <h1 class="h2">{{ tutor.name }}</h1>
             <p>{% for bage in tutor.goals %}<span class="badge badge-secondary mr-2">{{ goals[bage].sign }} {{ goals[bage].rus_name }} </span>
-                {% endfor %}Рейтинг: {{ tutor.rating }} Ставка: {{ tutor.price }} / час</p>
+                {% endfor %}</p>
+              <p>Рейтинг: {{ tutor.rating }} Ставка: {{ tutor.price }} / час</p>
             <p>{{ tutor.about }}</p>
             <br> <br>
 
           </div>
         </div>
       </div>
-      <div class="card-body m-2 m-md-4">
-        <h2 class="h5 mb-4">Записаться на пробный урок</h2>
-        <table class="table">
-          <tr>
-            <th><span class="btn font-weight-bold py-0">#</span></th>
-            <th>Пн</th>
-            <th>Вт</th>
-            <th>Ср</th>
-            <th>Чт</th>
-            <th>Пт</th>
-            <th>Сб</th>
-            <th>Вс</th>
-          </tr>
-          {% set time_slots = ["8:00","10:00","12:00","14:00","16:00"] %}
-          {% for time_slot in time_slots %}
-          <tr>
-            <td><span class="btn">{{ time_slot }}</span></td>
-            {% for day in ["mon","tue","wed","thu","fri"] %}
-            {% if tutor.free[day][time_slot] %}
-            {% set available = " btn-success" %}
+      <style>
+/* CSS очень уж хотелось выровнять эти кнопки, а ответа как сделать bootstrap'ом я так и не нашел*/
+.btn-correct {
+    width: 100px;
+    height: 60px;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 16px;
+    white-space: normal;
+}
+</style>
+      <section class="available container ml-10">
+        <h4 class="mb-4 mt-5">Записаться на пробный урок</h4>
+        {% for day in time_table.days_of_week %}
+            <h5 class="mt-4">{{ (time_table.name_of_days)[day] }}</h5>
+            {% if time_table.open_days[day] %}
+               {% for time_slot in time_table.time_slots %}
+                    {% if tutor.free[day][time_slot] %}
+                        {% set available = " btn-success" %}
+              <a href="{{ url_for('form_tutor_booking', tutor_id=tutor.id, day_of_week=day, time_slot=time_slot) }}"
+                 class="btn btn-success btn-correct mr-2 mb-2">{{ time_slot }}<br> свободно</a>
+                    {% else %}
+              <a href="{{ url_for('form_tutor_booking', tutor_id=tutor.id, day_of_week=day, time_slot=time_slot) }}"
+                 class="btn btn-outline-secondary btn-correct mr-2 mb-2 disabled" >{{ time_slot }}<br> занято</a>
+                    {% endif %}
+                 {% endfor %}
             {% else %}
-            {% set available = " btn-secondary" %}
+                 <button class="btn btn-outline-secondary disabled mr-2 mb-2">Запись на этот день недоступна</button>
             {% endif %}
-            <!-- <td><a href="/booking/{{ tutor.id }}/{{ day }}/{{ time_slot }}" class="btn btn-sm{{ available }}">{{ time_slot }}</a></td> -->
-            <td><a href="{{ url_for('form_tutor_booking', tutor_id=tutor.id, day_of_week=day, time_slot=time_slot) }}" class="btn btn-sm{{ available }}">{{ time_slot }}</a></td>
-            {% endfor %}
-            <td>-</td>
-            <td>-</td>
-          </tr>
           {% endfor %}
-          </table>
-      </div>
+       </section>
     </div>
   </main>
 {% endblock %}

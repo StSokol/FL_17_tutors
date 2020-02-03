@@ -49,7 +49,12 @@ def tutor_profile(tutor_id):
     if (0 > tutor_id) or (tutor_id > len(tutors)):
         tutor_id = 0
     tutor = tutors[tutor_id]
-    return render_template("profile.html", tutor=tutor, goals=goals)
+    time_table = dict()
+    time_table["days_of_week"] = ['mon','tue','wed','thu','fri','sat','sun']
+    time_table["time_slots"] = ["8:00","10:00","12:00","14:00","16:00","18:00","20:00"]
+    time_table["name_of_days"] = local_tools.get_rus_name_day_of_week('all')
+    time_table["open_days"] = {day:any(list(tutor["free"][day].values())) for day in time_table["days_of_week"] }
+    return render_template("profile.html", tutor=tutor, goals=goals, time_table=time_table)
 
 @app.route("/request")
 def form_request_all():
@@ -112,4 +117,4 @@ def form_tutor_booking_done():
 
 if __name__ == "__main__":
     # app.run(host="127.0.0.1", port=5000, debug=True)
-    app.run(debug=False)
+    app.run(debug=True)
